@@ -1,0 +1,88 @@
+# Product API access declaration. Declare Cribl product API paths your app needs to access.
+# At install time, admins see exactly which platform resources the app will use.
+#
+# Task Manager is read-mostly: it lists Worker Groups, Edge Fleets and their Nodes, reads
+# Leader-side system metrics, and reads per-Node system info and Source/Destination status.
+# The single write is restarting Nodes, which the UI always confirms with the user first.
+policies:
+  # Leader health, version and uptime for the status bar
+  - object: '/health'
+    actions: ['GET']
+  - object: '/system/info'
+    actions: ['GET']
+
+  # Worker Groups / Edge Fleets and their Nodes
+  - object: '/master/groups'
+    actions: ['GET']
+  - object: '/master/workers'
+    actions: ['GET']
+  - object: '/products/:product/groups/:group/summary'
+    actions: ['GET']
+
+  # Leader-side metrics store (memory, disk, load, throughput, Source/Destination/Pipeline health)
+  - object: '/system/metrics/query'
+    actions: ['POST']
+
+  # Per-Node reads (CPU per Worker Process, system info, Source/Destination status).
+  # Worker (/w/:wid) requests are authorized against the group-equivalent (/m/:gid) path,
+  # so both prefixes are declared.
+  - object: '/w/:wid/system/info'
+    actions: ['GET']
+  - object: '/m/:gid/system/info'
+    actions: ['GET']
+  - object: '/w/:wid/system/metrics'
+    actions: ['GET']
+  - object: '/m/:gid/system/metrics'
+    actions: ['GET']
+  - object: '/w/:wid/system/status/inputs'
+    actions: ['GET']
+  - object: '/m/:gid/system/status/inputs'
+    actions: ['GET']
+  - object: '/w/:wid/system/status/outputs'
+    actions: ['GET']
+  - object: '/m/:gid/system/status/outputs'
+    actions: ['GET']
+
+  # Live OS process and container lists from Edge Nodes (the Processes page and Node detail)
+  - object: '/w/:wid/edge/processes'
+    actions: ['GET']
+  - object: '/m/:gid/edge/processes'
+    actions: ['GET']
+  - object: '/w/:wid/edge/containers'
+    actions: ['GET']
+  - object: '/m/:gid/edge/containers'
+    actions: ['GET']
+
+  # Files and host facts on Edge Nodes (Files page, process drawer, Node detail)
+  - object: '/w/:wid/edge/logs'
+    actions: ['GET']
+  - object: '/m/:gid/edge/logs'
+    actions: ['GET']
+  - object: '/w/:wid/edge/ls/*'
+    actions: ['GET']
+  - object: '/m/:gid/edge/ls/*'
+    actions: ['GET']
+  - object: '/w/:wid/edge/file/sample'
+    actions: ['GET']
+  - object: '/m/:gid/edge/file/sample'
+    actions: ['GET']
+  - object: '/w/:wid/edge/fileinspect'
+    actions: ['GET']
+  - object: '/m/:gid/edge/fileinspect'
+    actions: ['GET']
+  - object: '/w/:wid/edge/search/file'
+    actions: ['POST']
+  - object: '/m/:gid/edge/search/file'
+    actions: ['POST']
+  - object: '/w/:wid/edge/metadata'
+    actions: ['GET']
+  - object: '/m/:gid/edge/metadata'
+    actions: ['GET']
+  - object: '/w/:wid/edge/events/query'
+    actions: ['GET']
+  - object: '/m/:gid/edge/events/query'
+    actions: ['GET']
+
+  # Restart selected Nodes (confirmed by the user in the UI before every call)
+  - object: '/products/:product/workers/restart'
+    actions: ['PATCH']

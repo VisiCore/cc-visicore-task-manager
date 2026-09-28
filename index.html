@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Manager</title>
+    <style>
+      /* First-paint hint only: the Cribl shell pushes the real theme via CRIBL_APP_LAYOUT. */
+      :root { color-scheme: light dark; }
+      html, body { margin: 0; background: #fff; }
+      @media (prefers-color-scheme: dark) { html, body { background: #111113; } }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

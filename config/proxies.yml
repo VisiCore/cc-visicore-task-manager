@@ -1,0 +1,2 @@
+# External API declaration. Task Manager makes no external calls: every request targets the
+# Cribl product API through the app fetch proxy, so no domains are declared here.
