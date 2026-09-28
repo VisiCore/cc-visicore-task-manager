@@ -4,6 +4,8 @@ A task manager for Cribl Edge: live OS processes on every Edge Node, plus CPU, m
 
 ![Processes page: a treemap of every process on an Edge Node sized by memory, with the selection rail showing the node's totals and what changed since the last refresh](screenshots/processes.png)
 
+![Processes page in table view: every process with PID, user, command, CPU and memory meters, resident size, threads, state, CPU time, start time and parent, each row opening a details drawer](screenshots/table.png)
+
 ## Summary
 
 Task Manager is a Cribl app for operating Edge Fleets. It shows what is running on each Edge Node right now, which Node or Source is hurting, and lets you restart Nodes safely from the same screen.
